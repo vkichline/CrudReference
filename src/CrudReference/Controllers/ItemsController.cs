@@ -1,7 +1,9 @@
 ﻿using CrudReference.Models;
+using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Mvc;
 using System.Collections.Generic;
 
+// Reference implementaion of RESTful CRUD controller for MVC6 WebAPI.
 namespace CrudReference.Controllers
 {
     [Route("api/[controller]")]
@@ -9,6 +11,7 @@ namespace CrudReference.Controllers
     {
         private IItemsRepository _items;
 
+        // Repository is injectd.  Created in Startup.cs.
         public ItemsController(IItemsRepository items)
         {
             _items = items;
@@ -21,7 +24,7 @@ namespace CrudReference.Controllers
             return _items.GetAll();
         }
 
-        // GET api/items/5
+        // GET api/items/100
         [HttpGet("{id}")]
         public Item Get(int id)
         {
@@ -34,36 +37,34 @@ namespace CrudReference.Controllers
         public IActionResult Post([FromBody]Item value)
         {
             Item item = _items.Add(value);
-            if (null == item)
+            if (null != item)
             {
-                return HttpBadRequest();
+                Context.Response.Headers["Location"] = LocationUrl(Request, value.Id); ;
+                return new HttpStatusCodeResult(201);    // Created
             }
             else
             {
-                string url = Request.Scheme + "://" + Request.Host + "/api/items/" + item.Id.ToString();
-                Context.Response.Headers["Location"] = url;
-                return new HttpStatusCodeResult(201);    // Created
+                return HttpBadRequest();
             }
         }
 
-        // PUT api/items/5
+        // PUT api/items/100
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody]Item value)
         {
             bool ok = _items.Update(id, value);
-            if (!ok)
+            if (ok)
             {
-                return HttpBadRequest();
+                Context.Response.Headers["Location"] = LocationUrl(Request, value.Id);
+                return new HttpStatusCodeResult(200);    // OK
             }
             else
             {
-                string url = Request.Scheme + "://" + Request.Host + "/api/items/" + value.Id.ToString();
-                Context.Response.Headers["Location"] = url;
-                return new HttpStatusCodeResult(200);    // OK
+                return HttpBadRequest();
             }
         }
 
-        // DELETE api/items/5
+        // DELETE api/items/100
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
@@ -75,6 +76,11 @@ namespace CrudReference.Controllers
             {
                 return HttpBadRequest();
             }
+        }
+
+        private string LocationUrl(HttpRequest request, int id)
+        {
+            return request.Scheme + "://" + request.Host + "/api/items/" + id.ToString();
         }
     }
 }

@@ -73,11 +73,6 @@ namespace CrudReference.Models
             return have;
         }
 
-        public void Save()
-        {
-            // TBD.  Implementation specific.
-        }
-
         public int Count()
         {
             return _items.Count();
