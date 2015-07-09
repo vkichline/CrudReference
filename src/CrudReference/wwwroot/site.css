@@ -1,0 +1,13 @@
+﻿.model-table {
+    border-collapse: collapse;
+}
+
+    .model-table th,
+    .model-table td {
+        border: 1px solid lightgray;
+        padding: 0.1em 0.5em;
+    }
+
+    .model-table .msg {
+        text-align: center;
+    }

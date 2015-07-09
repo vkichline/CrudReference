@@ -1,0 +1,33 @@
+﻿@using CrudReference.Models
+@model IEnumerable<Item>
+@{ ViewBag.Title = "Items Store"; }
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/site.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>@ViewBag.Title</h1>
+
+    <table class="model-table">
+        <thead>
+            <tr><th>Id</th><th>Content</th></tr>
+        </thead>
+        <tbody>
+            @if(0 == Model.Count())
+            {
+                <tr><td colspan="2" class="msg">No Data</td></tr>
+            }
+            else
+            {
+                @foreach(Item item in Model)
+                {
+                    <tr><td>@item.Id</td><td>@item.Content</td></tr>
+                }
+            }
+        </tbody>
+    </table>
+</body>
+</html>
