@@ -1,5 +1,5 @@
 // Test for CrudReference project, PUT command (update existing record)
-// usage:
+// Usage:
 //  node Update 101 "Changed Data"
 
 var http = require('http'),
@@ -19,19 +19,17 @@ function PutData(id, data) {
             'Content-Length': data.length
         }
     };
-    var request = http.request(options, function (res) {
-        if (200 == res.statusCode) {
-            var loc = res.headers.location;
-            console.log("SUCCESS. Location:", loc);
+    var request = http.request(options, function(response) {
+        if (200 == response.statusCode) {
+            console.log("SUCCESS. Location:", response.headers.location);
             result = true;
         } else {
-            console.log("ERROR. Status code =", res.statusCode);
+            console.log("ERROR. Status code =", response.statusCode);
         }
     });
     request.on('error', function (err) {
         console.log("Error:", err.code);
     });
-
     request.write(data);
     request.end();
 }

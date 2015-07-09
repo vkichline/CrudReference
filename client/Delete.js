@@ -1,5 +1,5 @@
 // Test for CrudReference project, DELETE command (remove existing record)
-// usage:
+// Usage:
 //  node Delete 101
 
 var http = require('http'),
@@ -14,12 +14,11 @@ function DeleteData(id) {
         port: apiPort,
         method: 'DELETE'
     };
-    var request = http.request(options, function (res) {
-        if (200 == res.statusCode) {
+    var request = http.request(options, function(response) {
+        if (200 == response.statusCode) {
             console.log("SUCCESS.", id, "deleted.");
-            result = true;
         } else {
-            console.log("ERROR. Status code =", res.statusCode);
+            console.log("ERROR. Status code =", response.statusCode);
         }
     });
     request.on('error', function (err) {

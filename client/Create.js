@@ -1,5 +1,5 @@
 // Test for CrudReference project, POST command
-// usage:
+// Usage:
 //  node Create "post this data"
 
 var http = require('http')
@@ -19,24 +19,22 @@ function PostData(data) {
             'Content-Length': data.length
         }
     };
-    var request = http.request(options, function (res) {
-        var loc = res.headers.location;
-        console.log("SUCCESS. Location:", loc);
-        result = true;
+    var request = http.request(options, function (response) {
+        console.log("SUCCESS. Location:", response.headers.location);
     });
     request.on('error', function (err) {
         console.log("Error:", err.code);
     });
-
     request.write(data);
     request.end();
 }
 
-if (3 != process.argv.length) {
+var args = process.argv;
+if (3 != args.length) {
     console.log("### Usage: node Create data");
     console.log("### Example: node Create 'Test Data'");
 } else {
-    PostData(process.argv[2]);
+    PostData(args[2]);
 }
 
 
