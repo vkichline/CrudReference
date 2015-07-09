@@ -13,7 +13,6 @@ namespace CrudReference.Models
         bool Update(int id, Item item);
         bool Remove(int id);
         void RemoveAll();
-        void Save();
         int Count();
     }
 }
