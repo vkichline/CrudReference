@@ -2,17 +2,15 @@
 // Usage:
 //  node Create "post this data"
 
-var http = require('http')
-apiHost = 'localhost',
-apiPath = '/api/items',
-apiPort = 47514;
+var http = require('http'),
+    api = require('./settings.json');
 
 function PostData(data) {
     data = '{"Content":"' + data + '"}';
     var options = {
-        host: apiHost,
-        path: apiPath,
-        port: apiPort,
+        host: api.host,
+        path: api.path,
+        port: api.port,
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

@@ -7,16 +7,14 @@
 
 var http = require('http'),
     stringDecoder = require('string_decoder').StringDecoder,
-    apiHost = 'localhost',
-    apiPath = '/api/items/',
-    apiPort = 47514;
+    api = require('./settings.json');
 
 // Poss "" for id if get all is desired
 function GetData(id) {
     var options = {
-        host: apiHost,
-        path: apiPath + id,
-        port: apiPort,
+        host: api.host,
+        path: api.path + '/' + id,
+        port: api.port,
         method: 'GET'
     };
     var request = http.request(options, function (responses) {

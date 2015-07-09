@@ -3,17 +3,16 @@
 //  node Delete 101
 
 var http = require('http'),
-    apiHost = 'localhost',
-    apiPath = '/api/items/',
-    apiPort = 47514;
+    api = require('./settings.json');
 
 function DeleteData(id) {
     var options = {
-        host: apiHost,
-        path: apiPath + id,
-        port: apiPort,
+        host: api.host,
+        path: api.path + '/' +id,
+        port: api.port,
         method: 'DELETE'
     };
+    console.log(options.path);
     var request = http.request(options, function(response) {
         if (200 == response.statusCode) {
             console.log("SUCCESS.", id, "deleted.");
