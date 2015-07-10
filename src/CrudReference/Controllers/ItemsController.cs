@@ -26,10 +26,17 @@ namespace CrudReference.Controllers
 
         // GET api/items/100
         [HttpGet("{id}")]
-        public Item Get(int id)
+        public IActionResult Get(int id)
         {
             Item item = _items.Get(id);
-            return item;
+            if(null != item)
+            {
+                return new ObjectResult(item);
+            }
+            else
+            {
+                return HttpNotFound();
+            }
         }
 
         // POST api/items
