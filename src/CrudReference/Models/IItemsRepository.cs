@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CrudReference.Models
-{
-    public interface IItemsRepository
-    {
+namespace CrudReference.Models {
+    public interface IItemsRepository {
         Item Add(Item item);
         Item Get(int id);
         IEnumerable<Item> GetAll();
