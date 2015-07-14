@@ -14,7 +14,7 @@ function DeleteData(id) {
     };
     console.log(options.path);
     var request = http.request(options, function(response) {
-        if (200 == response.statusCode) {
+        if (204 == response.statusCode) {
             console.log("SUCCESS.", id, "deleted.");
         } else {
             console.log("ERROR. Status code =", response.statusCode);

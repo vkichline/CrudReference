@@ -58,16 +58,11 @@ namespace CrudReference.Controllers {
         [HttpDelete("{id}")]
         public IActionResult Delete(int id) {
             if (_items.Remove(id)) {
-                return new HttpStatusCodeResult(200);    // OK
+                return new NoContentResult();
             }
             else {
                 return HttpNotFound();
             }
-        }
-
-        // Create the location header's content to return to the client
-        private string LocationUrl(HttpRequest request, int id) {
-            return request.Scheme + "://" + request.Host + "/api/items/" + id.ToString();
         }
     }
 }
