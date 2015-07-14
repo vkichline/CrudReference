@@ -1,10 +1,10 @@
-import httplib
+﻿import httplib
 
 def api_create(data):
     data = '{"Content":"' + data + '"}';
     conn = httplib.HTTPConnection("localhost", 47514)
     conn.connect()
-    request = conn.putrequest('POST', '/api/items')
+    request = conn.putrequest('POST', '/api/item')
     headers = {}
     headers['Content-Type'] = 'application/json'
     headers['Content-Length'] = len(data)

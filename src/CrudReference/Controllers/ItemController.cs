@@ -6,7 +6,7 @@ using System.Collections.Generic;
 // Reference implementaion of RESTful CRUD controller for MVC6 WebAPI.
 namespace CrudReference.Controllers {
     [Route("api/[controller]")]
-    public class ItemsController : Controller {
+    public class ItemController : Controller {
         // Repository is injected.  Created in Startup.cs.
         [FromServices]
         public IItemsRepository _items { get; set; }
@@ -35,7 +35,7 @@ namespace CrudReference.Controllers {
         public IActionResult Post([FromBody]Item value) {
             Item item = _items.Add(value);
             if (null != item) {
-                return CreatedAtRoute("GetItem", new { controller = "Items", id = item.Id }, item);
+                return CreatedAtRoute("GetItem", new { controller = "Item", id = item.Id }, item);
             }
             else {
                 return HttpBadRequest();

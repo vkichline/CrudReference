@@ -2,7 +2,7 @@
 
 def api_read():
     conn = httplib.HTTPConnection("localhost", 47514)
-    conn.request("GET", "/api/items")
+    conn.request("GET", "/api/item")
     resp = conn.getresponse()
     if 200 == resp.status:
         data = resp.read()

@@ -1,5 +1,5 @@
 {
   "host": "localhost",
-  "path": "/api/items",
+  "path": "/api/item",
   "port": 47514
 }
