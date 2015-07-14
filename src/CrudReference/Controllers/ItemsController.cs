@@ -7,12 +7,9 @@ using System.Collections.Generic;
 namespace CrudReference.Controllers {
     [Route("api/[controller]")]
     public class ItemsController : Controller {
-        private IItemsRepository _items;
-
         // Repository is injectd.  Created in Startup.cs.
-        public ItemsController(IItemsRepository items) {
-            _items = items;
-        }
+        [FromServices]
+        public IItemsRepository _items { get; set; }
 
         // GET: api/items
         [HttpGet]

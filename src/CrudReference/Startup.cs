@@ -14,7 +14,7 @@ namespace CrudReference
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddInstance<IItemsRepository>(new ItemsRepository());
+            services.AddSingleton<IItemsRepository, ItemsRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
