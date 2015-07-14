@@ -18,7 +18,8 @@ namespace CrudReference.Controllers {
         }
 
         // GET api/items/100
-        [HttpGet("{id}")]
+        // This route must be named for CreatedAtRoute call in Post below:
+        [HttpGet("{id}", Name = "GetItem")]
         public IActionResult Get(int id) {
             Item item = _items.Get(id);
             if (null != item) {
@@ -34,8 +35,7 @@ namespace CrudReference.Controllers {
         public IActionResult Post([FromBody]Item value) {
             Item item = _items.Add(value);
             if (null != item) {
-                Context.Response.Headers["Location"] = LocationUrl(Request, value.Id); ;
-                return new HttpStatusCodeResult(201);    // Created
+                return CreatedAtRoute("GetItem", new { controller = "Items", id = item.Id }, item);
             }
             else {
                 return HttpBadRequest();
@@ -47,11 +47,10 @@ namespace CrudReference.Controllers {
         public IActionResult Put(int id, [FromBody]Item value) {
             bool ok = _items.Update(id, value);
             if (ok) {
-                Context.Response.Headers["Location"] = LocationUrl(Request, value.Id);
-                return new HttpStatusCodeResult(200);    // OK
+                return new NoContentResult();
             }
             else {
-                return HttpBadRequest();
+                return HttpNotFound();
             }
         }
 
@@ -62,7 +61,7 @@ namespace CrudReference.Controllers {
                 return new HttpStatusCodeResult(200);    // OK
             }
             else {
-                return HttpBadRequest();
+                return HttpNotFound();
             }
         }
 

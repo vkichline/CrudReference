@@ -17,9 +17,9 @@ function PutData(id, data) {
             'Content-Length': data.length
         }
     };
-    var request = http.request(options, function(response) {
-        if (200 == response.statusCode) {
-            console.log("SUCCESS. Location:", response.headers.location);
+    var request = http.request(options, function (response) {
+        if (204 == response.statusCode) {
+            console.log("SUCCESS");
             result = true;
         } else {
             console.log("ERROR. Status code =", response.statusCode);
